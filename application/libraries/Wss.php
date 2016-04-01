@@ -104,6 +104,43 @@ class Wss
 
     /**
      * PRIVATE METHOD
+     * Algorithm to decode a Token.
+     *
+     * @param  [string]     $data       (required)      String data to be decrypted.
+     * @return [array]
+     */
+    private function decodeToken($token)
+    {
+        if($token)
+        {
+            if($data = $this->token_base64_decode($token))
+            {
+                $len  = mcrypt_get_iv_size(MCRYPT_RIJNDAEL_128, MCRYPT_MODE_CBC) * -1;
+                $iv   = substr($data, $len);
+                $data = rtrim(mcrypt_decrypt(MCRYPT_RIJNDAEL_128, hash('sha256', $this->encryption_key, true), substr($data, 0, (strlen($data) - mcrypt_get_iv_size(MCRYPT_RIJNDAEL_128, MCRYPT_MODE_CBC))), MCRYPT_MODE_CBC, $iv), "\0");
+
+                $data and $data = json_decode($data, true);
+
+                if($data && is_array($data))
+                {
+                    if(array_key_exists('uid', $data) && array_key_exists('tm', $data))
+                    {
+                        return $data;
+                    }
+                    elseif($this->debug)
+                    {
+                        throw new Exception('Invalid Token Structure');
+                    }
+                }
+            }
+        }
+
+        return array();
+    }
+
+
+    /**
+     * PRIVATE METHOD
      * Decode a base64 token.
      *
      * @param  [string]     $data       (required)      String data to be encoded. It might be a json string.
