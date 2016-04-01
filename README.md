@@ -39,30 +39,31 @@ $ sudo yum install php-mcrypt.x86_64 -y
 ```
 
 ### Warning
-This is just a library, I assume you already have a [CodeIgniter Framework](https://codeigniter.com/) project installed in your computer.
-If you do not have a Codeigniter project already installed, please access the [Codeigniter Installation Docs](http://www.codeigniter.com/user_guide/#installation) and follow its instructions in order to get it done before continue here.
+This is just a library, I assume you already have a CodeIgniter project installed in your computer.
+If you don't have it already installed, please access the [Codeigniter Installation Docs](http://www.codeigniter.com/user_guide/#installation) and follow its instructions in order to get it done before continue here.
 
 ### Copy the library files
 To install this library is very easy, you just need to copy two files in its respective folders. So, let's get started
- * 1. Copy the [Library](/blob/master/libraries/Wss.php) file into the "libraries" folder.
- * 2. Copy the [Config](/blob/master/config/wss.php) file into the "config" folder.
-As you can see this repository already have the structure folders "application", "application/config" and "application/libraries" for your better understanding. Just follow this structure and paste that files in its respective folders.
+ 1. Copy the [Library](/application/libraries/Wss.php) file into the "libraries" folder.
+ 2. Copy the [Config](/application/config/wss.php) file into the "config" folder.
+
+As you can see this repository already has the structure folders "application", "application/config" and "application/libraries" for your better understanding. Just copy the "application" folder and paste in your project.
 Voalat! Installation finished successfully.
 
 ### Configurations / Settings
 The wss.php file, inside of the "config" folder is your settings file.
 
 Now, you must configure your settings such as the token timelife, your private key, etc.
- * 1. Open the wss.php file inside of the config folder.
- * 2. Edit and save your settings. For each field there is an explanation below:
+ 1. Open the wss.php file inside of the config folder.
+ 2. Edit and save your settings. For each field there is an explanation below:
 
- *$config['encryption_key']*: This field is your private key that will be used to encrypt and decrypt your token data, so your token will be unique and it can not be decoded with another key. Write there your private key replacing the string "_PASTE-HERE-YOUR-PRIVATE-KEY_".
+ **$config['encryption_key']**: This field is your private key that will be used to encrypt and decrypt your token data, so your token will be unique and it can not be decoded by another key. Write there your private key replacing the string "_PASTE-HERE-YOUR-PRIVATE-KEY_".
 
- *$config['token_lifetime']*: The token_lifetime field is how long your token will be valid. This value is in seconds, so if you want to make your token valid for 1 hour, you should write 3600. You may want to set your token without limit, to do that, set this value as 0.
+ **$config['token_lifetime']**: The token_lifetime field is how long your token will be valid. This value is in seconds, so if you want to make your token valid for 1 hour, you should write 3600. You may want to set your token without limit, to do that, set this value as 0.
 
- *$config['token_delimiter']*: This field define the delimiter of your token data. The delimiter must not be a value that might be found in some part of your token data. Common Delimiters: ';', '|' or ':'.
+ **$config['token_delimiter']**: This field define the delimiter of your token data. The delimiter must not be a value that might be found in some part of your token data. Common Delimiters: ';', '|' or ':'.
 
- *$config['debug']*: The last one is the debug. This will allowed you to see some error in case that you are not getting what you expected to see.
+ **$config['debug']**: The last one is the debug. This will allowed you to see some error in case that you are not getting what you expected to see.
 
 
 -------------------------------------------------------------------
@@ -72,7 +73,7 @@ Before you use this library, you must load it.
     // Load wss library
     $this->load->library('wss');
 ```
-If you have any question, please look at [Using CodeIgniter Libraries](http://www.codeigniter.com/user_guide/general/libraries.html)
+If you have any question here, please take a look at [Using CodeIgniter Libraries](http://www.codeigniter.com/user_guide/general/libraries.html)
 
 ### Generating a token
 To generate a new token, call the function getToken. You must set the fist parameter which is the user id. The second parameter is optional.
@@ -85,7 +86,7 @@ To generate a new token, call the function getToken. You must set the fist param
     $token = $this->wss->getToken($user_id, $extra_info);
     echo $token;
 ```
-PS: The token size will change according its data, so how much more data you put there will make the token bigger.
+PS: The token size will change according to its data. So, as much more data you put there, it will make the token bigger.
 
 ### Validating a token
 In order to validate a token, you have to vall the function validateToken. You may pass the token parameter, or if it's comming by $_POST["token"], you don't need to set this parameter.
