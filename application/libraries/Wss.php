@@ -16,6 +16,7 @@ class Wss
     // Protected Variables
     protected $instance;
 
+
     /**
      * Define initial settings
      */
@@ -26,6 +27,9 @@ class Wss
 
         // Load instance
         $this->instance or $this->instance =& get_instance();
+
+        // Load session library
+        array_key_exists('session', $this->instance)  or $this->instance->load->library("session");
     }
 
 
