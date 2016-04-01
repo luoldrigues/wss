@@ -13,6 +13,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Wss
 {
+    // Protected Variables
+    protected $instance;
+
     /**
      * Define initial settings
      */
@@ -20,6 +23,9 @@ class Wss
     {
         // Requirements validation
         $this->requirements($params);
+
+        // Load instance
+        $this->instance or $this->instance =& get_instance();
     }
 
 
