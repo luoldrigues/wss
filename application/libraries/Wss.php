@@ -83,6 +83,45 @@ class Wss
 
 
     /**
+     * Validate a token.
+     *
+     * @param  [string]     $token      (optional)      Token previously generated.
+     * @return [boolean]
+     */
+    public function validateToken($token = null)
+    {
+        $token or $token = $this->instance->input->post('token');
+
+        if($tokenData = $this->decodeToken($token))
+        {
+            $this->instance->session->set_userdata('uid', $tokenData['uid']);
+
+            /**
+             * Validate if the token is expired
+             */
+            if(is_numeric($this->token_lifetime) and $this->token_lifetime > 0)
+            {
+                if((boolean) $token['tm'] - $this->token_lifetime)
+                {
+                    return true;
+                }
+                elseif($this->debug)
+                {
+                    throw new Exception('Expired Token');
+                }
+            }
+        }
+
+        if($this->debug)
+        {
+            throw new Exception('Invalid Token');
+        }
+
+        return false;
+    }
+
+
+    /**
      * PRIVATE METHOD
      * Algorithm to generate a Token. It return a base64 encoded string.
      *
