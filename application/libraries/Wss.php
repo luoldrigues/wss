@@ -50,6 +50,39 @@ class Wss
 
 
     /**
+     * Generate and return a valid token
+     *
+     * @param  [int]        $user_id        (required)      User identification number.
+     * @param  [array]      $extra          (optional)      Extra user data.
+     * @return [string]
+     */
+    public function getToken($user_id = null, $extra = array())
+    {
+        $token = null;
+
+        if($user_id)
+        {
+            $this->instance->session->set_userdata('uid', $user_id);
+
+            $data = array(
+                'uid' => $user_id,
+                'tm'  => time(),
+            );
+
+            $extra and $data = array_merge($data, $extra);
+
+            $token = $this->genToken($data);
+        }
+        elseif($this->debug)
+        {
+            throw new Exception('Invalid user_id.');
+        }
+
+        return $token;
+    }
+
+
+    /**
      * PRIVATE METHOD
      * Algorithm to generate a Token. It return a base64 encoded string.
      *
