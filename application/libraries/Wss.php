@@ -42,6 +42,10 @@ class Wss
         array_key_exists('encryption_key', $params)      and $this->encryption_key      = $params['encryption_key'];
         array_key_exists('token_lifetime', $params)      and $this->token_lifetime      = $params['token_lifetime'];
         array_key_exists('token_delimiter', $params)     and $this->token_delimiter     = $params['token_delimiter'];
+
+        // Default Settings. This will be always used when its settings is not specified in the config file.
+        $this->token_lifetime  or $this->token_lifetime  = 3600; // Set token lifetime as 3600 seconds (1 hour)
+        $this->token_delimiter or $this->token_delimiter = ';';  // Define semicolon
     }
 
 
