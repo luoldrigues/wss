@@ -71,6 +71,33 @@ class Wss
 
     /**
      * PRIVATE METHOD
+     * Decode a base64 token.
+     *
+     * @param  [string]     $data       (required)      String data to be encoded. It might be a json string.
+     * @return [string]
+     */
+    private function token_base64_decode($token)
+    {
+        $_token = urldecode($token);
+
+        $decode = base64_decode($_token);
+        if(base64_encode($decode) === $_token)
+        {
+            return $decode;
+        }
+
+        $decode = base64_decode($token);
+        if(base64_encode($decode) === $token)
+        {
+            return $decode;
+        }
+
+        return null;
+    }
+
+
+    /**
+     * PRIVATE METHOD
      * Prevents dependencies errors.
      *
      * @param  [array]      $params     (required)      Config file settings
