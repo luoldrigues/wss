@@ -122,6 +122,25 @@ class Wss
 
 
     /**
+     * Return Token Data. Take a look at getToken function.
+     *
+     * @param  [string]     $token      (required)      Token previously generated.
+     * @return [array]
+     */
+    public function getTokenData($token)
+    {
+        $data = array();
+
+        if($this->validateToken($token))
+        {
+            $data = $this->decodeToken($token);
+        }
+
+        return $data;
+    }
+
+
+    /**
      * Return User ID
      *
      * @param  [string]     $token      (optional)      Token previously generated.
