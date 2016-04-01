@@ -15,6 +15,12 @@ class Wss
 {
     // Protected Variables
     protected $instance;
+    protected $debug;
+
+    // Local Variables
+    private $encryption_key;
+    private $token_lifetime;
+    private $token_delimiter;
 
 
     /**
@@ -30,6 +36,12 @@ class Wss
 
         // Load session library
         array_key_exists('session', $this->instance)  or $this->instance->load->library("session");
+
+        // Load config file settings
+        array_key_exists('debug', $params)               and $this->debug               = $params['debug'];
+        array_key_exists('encryption_key', $params)      and $this->encryption_key      = $params['encryption_key'];
+        array_key_exists('token_lifetime', $params)      and $this->token_lifetime      = $params['token_lifetime'];
+        array_key_exists('token_delimiter', $params)     and $this->token_delimiter     = $params['token_delimiter'];
     }
 
 
