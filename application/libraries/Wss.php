@@ -122,6 +122,27 @@ class Wss
 
 
     /**
+     * Return User ID
+     *
+     * @param  [string]     $token      (optional)      Token previously generated.
+     * @return [int]
+     */
+    public function getUserId($token = null)
+    {
+        $data = null;
+
+        $token or $token = $this->instance->input->post('token');
+
+        if($userdata = $this->getTokenData($token))
+        {
+            $data = $userdata['uid'];
+        }
+
+        return $data;
+    }
+
+
+    /**
      * PRIVATE METHOD
      * Algorithm to generate a Token. It return a base64 encoded string.
      *
