@@ -35,13 +35,13 @@ class Wss
         $this->instance or $this->instance =& get_instance();
 
         // Load session library
-        array_key_exists('session', $this->instance)  or $this->instance->load->library("session");
+        array_key_exists('session', $this->instance) or $this->instance->load->library("session");
 
         // Load config file settings
-        array_key_exists('debug', $params)               and $this->debug               = $params['debug'];
-        array_key_exists('encryption_key', $params)      and $this->encryption_key      = $params['encryption_key'];
-        array_key_exists('token_lifetime', $params)      and $this->token_lifetime      = $params['token_lifetime'];
-        array_key_exists('token_delimiter', $params)     and $this->token_delimiter     = $params['token_delimiter'];
+        array_key_exists('debug', $params)           and $this->debug           = $params['debug'];
+        array_key_exists('encryption_key', $params)  and $this->encryption_key  = $params['encryption_key'];
+        array_key_exists('token_lifetime', $params)  and $this->token_lifetime  = $params['token_lifetime'];
+        array_key_exists('token_delimiter', $params) and $this->token_delimiter = $params['token_delimiter'];
 
         // Default Settings. This will be always used when its settings is not specified in the config file.
         $this->token_lifetime  or $this->token_lifetime  = 3600; // Set token lifetime as 3600 seconds (1 hour)
@@ -101,7 +101,7 @@ class Wss
              */
             if(is_numeric($this->token_lifetime) and $this->token_lifetime > 0)
             {
-                if((boolean) $token['tm'] - $this->token_lifetime)
+                if((boolean) $tokenData['tm'] - $this->token_lifetime)
                 {
                     return true;
                 }
