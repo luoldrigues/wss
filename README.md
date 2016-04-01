@@ -10,16 +10,16 @@ Written by [Luan Rodrigues](https://github.com/luoldrigues) for [CodeIgniter Fra
 ## Index
  * [Server Requirements](#server-requirements)
  * [Installation](#installation)
-    * [Warning](#waning)
+    * [Warning](#warning)
     * [Copy the library files](#copy-the-library-files)
-    * [Clone this repository](#clone this repository)
-    * [Configurations / Settings](#configurations-settings)
+    * [Configurations / Settings](#configurations--settings)
  * [Usage](#usage)
     * [Generating a token](#generating-a-token)
     * [Validating a token](#validating-a-token)
     * [Get user id](#get-user-id)
     * [Get token data](#get-token-data)
  * [Example](#example)
+    * [Result](#result)
  * [Licence](#licence)
 
 
